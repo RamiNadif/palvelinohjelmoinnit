@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lomakekäsittelijä</title>
+  </head>
+  <body>
+    <h1>Lomakekäsittelijä</h1>
+
+    <form method="POST" action="/palaute">
+      <label for="nimi">Nimi: </label><br />
+      <input type="text" id="nimi" name="nimi" /><br /><br />
+
+      <label for="sahkoposti">Sähköposti: </label><br />
+      <input type="email" id="sahkoposti" name="sahkoposti" /><br /><br />
+
+      <label for="palaute">Palaute: </label><br />
+      <textarea id="palaute" name="palaute" rows="5" cols="40"></textarea
+      ><br /><br />
+
+      <input type="submit" value="Lähetä" />
+    </form>
+  </body>
+</html>
