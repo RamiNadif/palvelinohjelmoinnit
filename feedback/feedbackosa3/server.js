@@ -132,26 +132,37 @@ WHERE support_ticket.id = ?
 app.post("/ticket/:id", async (req, res) => {
   try {
     if (!req.session.user || req.session.user.admin != 1) {
-      return res.send("Vain admin voi vastata viestiin");
+      return res.send("Vain admin voi muuttaa statusta");
     }
-    const { message } = req.body;
+
     const id = req.params.id;
+    const { message, status } = req.body;
 
-    if (!message || message.trim() === "") {
-      console.log("vastaa bro");
-      return res.redirect(`/ticket/${id}`);
+    // Päivitä aina status
+    // Jos Closed → lisätään kasitelty-aika, muuten ei kosketa kasitelty-kenttään
+    let sql, params;
+    if (status === "Closed") {
+      sql = "UPDATE support_ticket SET status=?, kasitelty=NOW() WHERE id=?";
+      params = [status, id];
+    } else {
+      sql = "UPDATE support_ticket SET status=? WHERE id=?";
+      params = [status, id];
     }
 
-    await pool.execute(
-      "INSERT INTO support_message(body,ticket_id) VALUES (?,?)",
-      [message, id],
-    );
+    await pool.execute(sql, params);
+
+    // Lisää viesti vain jos sitä on annettu
+    if (message && message.trim() !== "") {
+      await pool.execute(
+        "INSERT INTO support_message(body, ticket_id) VALUES (?,?)",
+        [message, id],
+      );
+    }
 
     res.redirect(`/ticket/${id}`);
   } catch (error) {
     console.error(error);
-
-    res.status(500).send("server Error");
+    res.status(500).send("Server Error");
   }
 });
 app.listen(port, host, console.log(`${host}:${port} kuuntelee...`));

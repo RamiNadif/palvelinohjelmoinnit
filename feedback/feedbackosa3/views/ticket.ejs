@@ -16,13 +16,22 @@
         </div>
       </ul>
     </nav>
-
+    
     <table>
       <tr>
-        <th>Status</th>
-        <th>ID</th>
-        <th>Saapunut</th>
-        <th>Koko nimi</th>
+        
+        <th>
+         <form method="post" action="/ticket/<%= ticket.id %>">
+  <select name="status" onchange="this.form.submit()">
+    <option value="Open" <%= ticket.status === 'Open' ? 'selected' : '' %>>Open</option>
+    <option value="Closed" <%= ticket.status === 'Closed' ? 'selected' : '' %>>Closed</option>
+    <option value="Done" <%= ticket.status === 'Done' ? 'selected' : '' %>>Done</option>
+    <option value="Working on" <%= ticket.status === 'Working on' ? 'selected' : '' %>>Working on</option>
+  </select>
+</form>
+  <th>ID</th>
+  <th>Saapunut</th>
+  <th>Koko nimi</th>
         <th>Asiakas</th>
 
         <th>Kuvaus</th>
@@ -39,10 +48,10 @@
         <td><%= ticket.kuvaus %></td>
         <td><%= ticket.kasitelty %></td>
         <td><%= ticket.palaute %></td>
+ 
+        
 
-        <h1>Viestit</h1>
-
-        <<table>
+        <table><h1>Viestit</h1>
   <tr>
     <th>Aika</th>
     <th>ID</th>
@@ -62,11 +71,12 @@
 
       </tr>
     </table>
-    <h3>Viestit</h3>
+    
     <form method="post" action="/ticket/<%= ticket.id %>">
       <input name="message" id="message" type="text" placeholder="Reply" />
 
       <button type="submit">Reply</button>
     </form>
   </body>
+
 </html>
