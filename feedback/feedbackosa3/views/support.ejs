@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css">
+  <title>Tukipyynnöt</title>
+</head>
+<body>
+    
+  <nav>
+    <ul id="lista">
+  <div id="navi">
+      <li><a href="/">Asiakkaat ja käyttäjät</a></li>
+      <li><a href="/support">Tukipyynnöt</a></li>
+      <li><a href="/feedback">Palautteet</a></li></div>
+    </ul>
+  </nav>
+
+
+<table>
+  <tr>
+    <th>status</th>
+    <th>id</th>
+    <th>saapunut</th>
+    <th>asiakas</th>
+    <th>kuvaus</th>
+  <th>käsitelty</th>
+  </tr>
+  <% rows.forEach(c => { %>
+    <tr onclick="window.location=`/ticket/<%= c.id%>`" >
+
+  
+    <td> <%= c.status %></td>
+   <td>  <%= c.id %></td>
+   
+   <td><%= c.saapunut%></td>
+   <td><%= c.asiakas%></td>
+   <td><%= c.kuvaus%></td>
+   <td><%= c.käsitelty%></td>
+   </tr>
+  <% }) %></table>
+
+  
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css">
+  <title>Palautteet</title>
+</head>
+<body>
+    
+  <nav>
+    <ul id="lista">
+       <div id="navi">
+      <li><a href="/">Asiakkaat ja käyttäjät</a></li>
+      <li><a href="/support">Tukipyynnöt</a></li>
+      <li><a href="/feedback">Palautteet</a></li></div>
+    </ul>
+  </nav>
+
+
+<table>
+  <tr>
+    <th>asiakas</th>
+    <th>saapunut</th>
+    <th>vieraan nimi</th>
+    <th>vieraan email</th>
+    <th>palaute</th>
+    <th>käsitelty</th>
+  </tr>
+  <% rows.forEach(c => { %>
+    <tr>
+  
+    
+   <td> <%= c.asiakas %></td>
+   <td> <%= c.id %></td>
+   <td><%= c.saapunut%></td>
+   <td><%= c.vieraan_email%></td>
+   <td><%= c.palaute%></td>
+   <td><%= c.käsitelty%></td>
+  <% }) %></tr></table>
+
+  
+</body>
+</html>
