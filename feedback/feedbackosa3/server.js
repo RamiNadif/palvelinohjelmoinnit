@@ -94,9 +94,12 @@ app.get("/ticket/:id", async (req, res) => {
     [id],
   );
 
+  const [statuses] = await pool.query("SELECT id, description FROM ticket_status");
+
   const sqlTicket = `
 SELECT 
 support_ticket.id AS id,
+support_ticket.status AS status_id,
 system_user.id AS user_id,
 system_user.fullname AS kokonimi,
 ticket_status.description AS status,
@@ -127,6 +130,7 @@ WHERE support_ticket.id = ?
   res.render("ticket", {
     ticket: ticketRows[0],
     messages: messages,
+    statuses: statuses,
   });
 });
 app.post("/ticket/:id", async (req, res) => {
@@ -136,22 +140,24 @@ app.post("/ticket/:id", async (req, res) => {
     }
 
     const id = req.params.id;
-    const { message, status } = req.body;
+    const message = req.body.message;
+    const status = req.body.status;
 
-    // Päivitä aina status
-    // Jos Closed → lisätään kasitelty-aika, muuten ei kosketa kasitelty-kenttään
-    let sql, params;
-    if (status === "Closed") {
-      sql = "UPDATE support_ticket SET status=?, kasitelty=NOW() WHERE id=?";
-      params = [status, id];
-    } else {
-      sql = "UPDATE support_ticket SET status=? WHERE id=?";
-      params = [status, id];
+    // 🟡 jos status tuli
+    if (status) {
+      const [closedStatus] = await pool.query("SELECT id FROM ticket_status WHERE description = 'Closed'");
+      let sql, params;
+      if (status == closedStatus[0]?.id) {
+        sql = "UPDATE support_ticket SET status=?, handled=NOW() WHERE id=?";
+        params = [status, id];
+      } else {
+        sql = "UPDATE support_ticket SET status=? WHERE id=?";
+        params = [status, id];
+      }
+      await pool.execute(sql, params);
     }
 
-    await pool.execute(sql, params);
-
-    // Lisää viesti vain jos sitä on annettu
+    // 🟢 jos message tuli
     if (message && message.trim() !== "") {
       await pool.execute(
         "INSERT INTO support_message(body, ticket_id) VALUES (?,?)",

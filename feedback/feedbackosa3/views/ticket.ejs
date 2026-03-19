@@ -23,12 +23,14 @@
         <th>
          <form method="post" action="/ticket/<%= ticket.id %>">
   <select name="status" onchange="this.form.submit()">
-    <option value="Open" <%= ticket.status === 'Open' ? 'selected' : '' %>>Open</option>
-    <option value="Closed" <%= ticket.status === 'Closed' ? 'selected' : '' %>>Closed</option>
-    <option value="Done" <%= ticket.status === 'Done' ? 'selected' : '' %>>Done</option>
-    <option value="Working on" <%= ticket.status === 'Working on' ? 'selected' : '' %>>Working on</option>
-  </select>
+  <% statuses.forEach(s => { %>
+    <option value="<%= s.id %>" <%= ticket.status_id == s.id ? 'selected' : '' %>>
+      <%= s.description %>
+    </option>
+  <% }) %>
+</select>
 </form>
+        </th>
   <th>ID</th>
   <th>Saapunut</th>
   <th>Koko nimi</th>
@@ -48,28 +50,23 @@
         <td><%= ticket.kuvaus %></td>
         <td><%= ticket.kasitelty %></td>
         <td><%= ticket.palaute %></td>
- 
-        
-
-        <table><h1>Viestit</h1>
-  <tr>
-    <th>Aika</th>
-    <th>ID</th>
-    <th>Vastaus</th>
-  
-  </tr>
-  <% messages.forEach(c => { %>
-    <tr>
-  
-    <td> <%= c.aika %></td>
-   <td> <%= c.ID %></td>
-   
-   <td><%= c.body%></td>
-   
-   </tr>
-  <% }) %></table>
-
       </tr>
+    </table>
+    
+    <h1>Viestit</h1>
+    <table>
+      <tr>
+        <th>Aika</th>
+        <th>ID</th>
+        <th>Vastaus</th>
+      </tr>
+      <% messages.forEach(c => { %>
+        <tr>
+          <td><%= c.aika %></td>
+          <td><%= c.ID %></td>
+          <td><%= c.body %></td>
+        </tr>
+      <% }) %>
     </table>
     
     <form method="post" action="/ticket/<%= ticket.id %>">

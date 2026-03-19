@@ -1,0 +1,47 @@
+body {
+  margin: 40px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+li {
+  font-size: 30px;
+  list-style: none;
+}
+nav {
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+}
+#navi {
+  display: flex;
+  flex-direction: row;
+  gap: 350px;
+}
+th,
+td {
+  border: 1px solid black;
+  padding: 10px;
+}
+tr:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+header {
+  background-color: cyan;
+}
+select {
+  text-align: left;
+}
+.logout-link {
+  background: none;
+  border: none;
+
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0;
+}

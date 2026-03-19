@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css">
+  <title>Asiakkaat ja käyttäjät</title>
+</head>
+<body>
+    
+  <nav>
+    <ul id="lista">
+      <div id="navi">
+      <li><a href="/">Asiakkaat ja käyttäjät</a></li>
+      <li><a href="/support">Tukipyynnöt</a></li>
+      <li><a href="/feedback">Palautteet</a></li> </div>
+      <% if (user) { %>
+        <li><form method="post" action="/logout" style="display: inline;"><button type="submit" class="logout-link">Logout</button></form></li>
+      <% } %>
+     
+    </ul>
+  </nav>
+
+<table>
+  <tr>
+    <th>asiakas</th>
+    <th>id</th>
+    <th>koko nimi</th>
+    <th>email</th>
+    <th>admin</th>
+  </tr>
+  <% rows.forEach(c => { %>
+    <tr>
+  
+    
+   <td> <%= c.asiakas %></td>
+   <td> <%= c.id %></td>
+   <td><%= c.koko_nimi%></td>
+   <td><%= c.email%></td>
+   <td><%= c.admin%></td>
+  <% }) %></tr></table>
+
+  
+</body>
+</html>

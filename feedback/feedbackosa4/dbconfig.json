@@ -1,0 +1,7 @@
+{
+  "host": "localhost",
+  "user": "projekti",
+  "password": "mariadbsalasana",
+  "database": "feedback_support",
+  "port": 3307
+}
