@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirjaudu sisään</title>
+</head>
+<body>
+    <h1>Kirjaudu sisään</h1>
+    <% if (typeof message !== 'undefined') { %>
+        <p style="color: red;"><%= message %></p>
+    <% } %>
+    <form method="post" action="/login">
+        <label for="identifier">ID tai Sähköposti:</label>
+        <input type="text" name="identifier" id="identifier" required />
+         <input type="password" name="password" id="password" required />
+        <button type="submit">Kirjaudu sisään</button>
+    </form>
+</body>
+</html>
