@@ -1,4 +1,3 @@
-//import
 import { fileURLToPath } from "node:url";
 import express from "express";
 import session from "express-session";
@@ -25,13 +24,10 @@ app.use(express.urlencoded({ extended: true }));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-//ejs moottori
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static("public"));
-
-//vakiot
 
 app.get("/", async (req, res) => {
   try {
