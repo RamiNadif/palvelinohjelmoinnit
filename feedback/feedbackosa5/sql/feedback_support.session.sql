@@ -3,6 +3,7 @@
 
 
 /*salasanat: testi, testi2, testi3 
+
 ALTER TABLE system_user
 ADD passwords varchar(255);
 
